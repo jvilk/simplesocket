@@ -66,6 +66,15 @@ public:
     return *this;
   }
 
+  /// Read in a string from the socket and pipes it to the stringstream.
+  simplesocket& operator>>(stringstream& t) {
+    char buf[MAXBUF+1];
+    memset (buf, 0, MAXBUF+1);
+    read (buf, MAXBUF);
+    t << buf;
+    return *this;
+  }
+
   bool seenEof() const {
     return _seenEof;
   }
