@@ -47,12 +47,19 @@ public:
     close();
   }
 
+  /// Common case. No need to stringstream this.
+  simplesocket& operator<<(const char* t) {
+    write (t, strlen(t));
+    return *this;
+  }
+
   /// Write any value out to the socket.
   template <class TYPE>
   simplesocket& operator<<(TYPE t) {
     stringstream output;
     output << t;
-    auto buf = output.str().c_str();
+    auto buf_str = output.str();
+    auto buf = buf_str.c_str();
     write (buf, strlen(buf));
     return *this;
   }
