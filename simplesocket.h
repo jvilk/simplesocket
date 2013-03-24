@@ -83,7 +83,8 @@ public:
   }
 
   bool seenEof() const {
-    return _seenEof;
+    // XXX: Hackfix.
+    return _seenEof || this->_socketfd == -1;
   }
 
   int write (const char * buf, size_t len) {
